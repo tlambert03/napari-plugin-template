@@ -2,8 +2,9 @@
 
 [Copier] template for authoring ([npe2]-based) [napari] plugins.
 
-**NOTE: This repo is not meant to be cloned/forked directly! Please read
-"Getting Started" below**
+|   |
+|---|
+:warning: This repo is not meant to be cloned/forked directly!
 
 ## Getting Started
 
@@ -17,3 +18,5 @@ copier "gh:napari/napari-plugin-template" /path/to/new/package
 ```
 
 [Copier]: https://copier.rtfd.io/
+[npe2]: https://github.com/napari/npe2
+[napari]: https://github.com/napari/napari
