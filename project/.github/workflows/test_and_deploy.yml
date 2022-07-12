@@ -1,19 +1,16 @@
 # This workflows will upload a Python Package using Twine when a release is created
 # For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
-{% raw %}
 name: tests
 
 on:
   push:
     branches:
       - main
-      - npe2
     tags:
       - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
   pull_request:
     branches:
       - main
-      - npe2
   workflow_dispatch:
 
 jobs:
@@ -88,4 +85,3 @@ jobs:
           git tag
           python -m build .
           twine upload dist/*
-{% endraw %}

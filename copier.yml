@@ -1,0 +1,83 @@
+# ---------- PROMPTS ----------
+
+full_name: 
+  type: str
+  help: Your full name
+
+email:
+  type: str
+  help: Your email
+  placeholder: yourname@example.com
+
+github_username_or_organization:
+  type: str
+  help: Your repository namespace
+  default: githubuser
+
+plugin_name:
+  type: str
+  help: The name of your plugin
+  default: napari-foobar
+
+github_repository_url:
+  type: str
+  help: URL where you plan to host this repository
+  default: "https://github.com/{{github_username_or_organization}}/{{plugin_name}}"
+  choices:
+    - "https://github.com/{{github_username_or_organization}}/{{plugin_name}}"
+    - provide later
+
+# module_name: "{{ plugin_name|lower|replace('-', '_') }}"
+
+display_name:
+  type: str
+  help: User-facing text to display as the name of this plugin.
+  default: "{{ plugin_name|title|replace('-', ' ') }}"
+
+short_description: 
+  type: str
+  help: a short description of what your plugin does
+  default: A simple plugin to use with napari
+
+include_reader_plugin:
+  type: bool
+  default: true
+  help: Include reader plugin example in project?
+
+include_writer_plugin:
+  type: bool
+  default: true
+  help: Include writer plugin example in project?
+
+include_sample_data_plugin:
+  type: bool
+  default: true
+  help: Include sample data plugin example in project?
+
+include_widget_plugin:
+  type: bool
+  default: true
+  help: Include widget plugin example in project?
+
+use_git_tags_for_versioning:
+  type: bool
+  default: false
+
+install_precommit:
+  type: bool
+  default: false
+
+license:
+  type: str
+  help: Your project's license
+  default: BSD 3-Clause License
+  choices:
+    - BSD 3-Clause License
+    - MIT License
+    - Apache License 2.0
+    - GNU Lesser General Public License v3.0
+
+# ---------- CONIFGURATION ----------
+
+_subdirectory: project
+_templates_suffix: .jinja

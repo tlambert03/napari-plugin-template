@@ -1,6 +1,6 @@
 # napari Plugin Prompt Reference
 
-When you first run cookiecutter to build a napari plugin, you will be prompted
+When you run `copier` to build a napari plugin, you will be prompted
 for some configuration options. Your answers to these prompts will determine
 some aspects of your plugin package including its name, versioning behaviour,
 license, etc. None of these configuration options are set in stone - you
@@ -125,8 +125,7 @@ add `version = 0.0.1` to your `setup.cfg`.
 If you choose `"y"` for this prompt, your package will be set up to have
 [`setuptools_scm`](https://github.com/pypa/setuptools_scm) manage versions for
 you based on your git tags. See the
-[readme](https://github.com/napari/cookiecutter-napari-plugin#automatic-deployment-and-version-management)
-for details.
+README for details.
 
 This option typically requires the least effort to manage versioning for your
 package, and will prevent errors with manually managed version strings going out
