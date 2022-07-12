@@ -2,9 +2,9 @@
 
 [Copier] template for authoring ([npe2]-based) [napari] plugins.
 
-|   |
-|---|
-:warning: This repo is not meant to be cloned/forked directly!
+| :warning: This repo is not meant to be cloned/forked directly! |
+| ---|
+
 
 ## Getting Started
 
