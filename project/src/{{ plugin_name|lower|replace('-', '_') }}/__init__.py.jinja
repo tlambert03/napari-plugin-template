@@ -6,9 +6,8 @@ try:
 except PackageNotFoundError:
     __version__ = "uninstalled"
 {%- else -%}
-__version__ = '0.1.0'
+__version__ = "0.1.0"
 {%- endif %}
-
 {% if include_reader_plugin %}
 from ._reader import napari_get_reader
 {% endif %}{% if include_sample_data_plugin -%}

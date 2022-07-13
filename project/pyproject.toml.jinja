@@ -72,9 +72,7 @@ packages = {find = {where = ["src"], exclude=[]}}
 [tool.setuptools.package-data]
 "*" = ["*.yaml"]
 
-{% if use_git_tags_for_versioning -%}
-[tool.setuptools_scm]
-{%- endif %}
+{% if use_git_tags_for_versioning %}[tool.setuptools_scm]{% endif %}
 
 [tool.black]
 line-length = 79
@@ -82,3 +80,11 @@ line-length = 79
 [tool.isort]
 profile = "black"
 line_length = 79
+
+# https://github.com/mgedmin/check-manifest#configuration
+[tool.check-manifest]
+ignore = [
+  ".napari/**/*",
+  ".pre-commit-config.yaml",
+  "tox.ini",
+]
