@@ -36,7 +36,7 @@ for this plugin and will appear as part of the `url` field in `setup.cfg`.
 This username could be your personal username or the organization under which
 you plan to host the plugin on GitHub. If you do not wish to provide a username,
 simply press `Enter` at this prompt, and choose `provide later` at the
-`github_repository_url` prompt - this will omit the `url` field in `setup.cfg`
+`repository_url` prompt - this will omit the `url` field in `setup.cfg`
 entirely, and you may add it later if you wish.
 
 ## plugin_name
@@ -54,7 +54,7 @@ pip install plugin_name
 The convention for these packages is that they should have short, all-lowercase
 names, with hyphens preferred over underscores for separating words.
 
-## github_repository_url
+## repository_url
 
 This will be the code repository link that is stored in the `url` field in
 `setup.cfg`. The default option is generated using your `github_username_or_organization` and `plugin_name`.

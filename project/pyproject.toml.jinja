@@ -1,14 +1,79 @@
+# https://peps.python.org/pep-0517/
 [build-system]
-{% if use_git_tags_for_versioning == 'y' and plugin_name != "foo-bar" -%}
-requires = ["setuptools", "wheel", "setuptools_scm"]
+{% if use_git_tags_for_versioning -%}
+requires = ["setuptools>=45", "wheel", "setuptools-scm>=6.2"]
 {%- else -%}
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=45", "wheel"]
 {%- endif %}
 build-backend = "setuptools.build_meta"
 
-{% if use_git_tags_for_versioning == 'y' and plugin_name != "foo-bar" %}
+
+# https://peps.python.org/pep-0621/
+[project]
+name = "{{ plugin_name }}"
+description = "{{ short_description }}"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "{{ license }}"}
+authors = [
+  {email="{{ email }}", name="{{ full_name }}"},
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Framework :: napari",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+dynamic = ["version"]
+dependencies = [
+    "numpy",
+{%- if include_widget_plugin == 'y' -%}
+    "magicgui",
+    "qtpy",
+{% endif %}
+]
+
+{% if repository_url != 'provide later' -%}
+[project.urls]
+Homepage = "{{ repository_url }}"
+"Bug Tracker" = "{{ repository_url }}/issues"
+Documentation = "{{ repository_url }}#README.md"
+"Source Code" = "{{ repository_url }}"
+{%- endif %}
+
+# extras
+# https://peps.python.org/pep-0621/#dependencies-optional-dependencies
+[project.optional-dependencies]
+testing = [
+    "tox",
+    "pytest",  # https://docs.pytest.org/en/latest/contents.html
+    "pytest-cov",  # https://pytest-cov.readthedocs.io/en/latest/
+{%- if include_widget_plugin == 'y' -%}
+    "pytest-qt",  # https://pytest-qt.readthedocs.io/en/latest/
+    "napari",
+    "pyqt5",
+{% endif %}
+]
+
+# Entry points
+# https://peps.python.org/pep-0621/#entry-points
+[project.entry-points."napari.manifest"]
+{{plugin_name}} = "{{module_name}}:napari.yaml"
+
+# https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+packages = {find = {where = ["src"], exclude=[]}}
+
+[tool.setuptools.package-data]
+"*" = ["*.yaml"]
+
+{% if use_git_tags_for_versioning -%}
 [tool.setuptools_scm]
-write_to = "src/{{module_name}}/_version.py"
 {%- endif %}
 
 [tool.black]

@@ -19,7 +19,12 @@ plugin_name:
   help: The name of your plugin
   default: napari-foobar
 
-github_repository_url:
+module_name: 
+  type: str
+  help: The top level module name (from which you will import)
+  default: "{{ plugin_name|lower|replace('-', '_') }}"
+
+repository_url:
   type: str
   help: URL where you plan to host this repository
   default: "https://github.com/{{github_username_or_organization}}/{{plugin_name}}"
@@ -27,7 +32,6 @@ github_repository_url:
     - "https://github.com/{{github_username_or_organization}}/{{plugin_name}}"
     - provide later
 
-# module_name: "{{ plugin_name|lower|replace('-', '_') }}"
 
 display_name:
   type: str
