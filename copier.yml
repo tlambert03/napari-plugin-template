@@ -89,4 +89,4 @@ _templates_suffix: .jinja
 _answers_file: .napari-template-answers.yml
 _tasks:
     # Strings get executed under system's default shell
-    - "git init"
+    - "git init -q && git checkout -b main"
