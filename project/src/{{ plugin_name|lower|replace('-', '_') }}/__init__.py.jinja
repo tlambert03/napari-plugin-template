@@ -17,7 +17,7 @@ from ._widget import ExampleQWidget, example_magic_widget
 {% endif %}{% if include_writer_plugin -%}
 from ._writer import write_multiple, write_single_image
 {% endif %}
-__all__ = (
+__all__ = [
     {% if include_reader_plugin -%}
     "napari_get_reader",
     {% endif %}{% if include_writer_plugin -%}
@@ -29,4 +29,4 @@ __all__ = (
     "ExampleQWidget",
     "example_magic_widget",
 {% endif -%}
-)
+]
