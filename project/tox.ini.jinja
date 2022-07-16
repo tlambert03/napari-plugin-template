@@ -1,6 +1,7 @@
 # For more information about tox, see https://tox.readthedocs.io/en/latest/
 [tox]
 envlist = py{38,39,310}-{linux,macos,windows}{% if include_widget_plugin %}-{pyqt5,pyside2}{% endif %}
+skip_missing_interpreters=true
 isolated_build=true
 
 [gh-actions]
