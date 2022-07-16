@@ -14,6 +14,19 @@ on:
   workflow_dispatch:
 
 jobs:
+  # make sure that all important files are included in the release
+  # if you need to explicitly ignore a file, add it to the 
+  # [tool.check-manifest] section in in pyproject.toml
+  check-manifest:
+    name: Check Manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      - run: pip install check-manifest && check-manifest
+
   test:
     name: {% raw %}${{ matrix.platform }} py${{ matrix.python-version }}{% endraw %}{% if include_widget_plugin %}{% raw %} ${{ matrix.backend }}{% endraw %}{% endif %}
     runs-on: {% raw %}${{ matrix.platform }}{% endraw %}
