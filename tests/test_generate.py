@@ -53,12 +53,11 @@ def built(template):
         template, plugin_name=NAME, full_name="Test Name", email="test@example.com"
     ) as out:
         with inside_dir(str(out)):
-            run(["git", "init", "-q"], check=True)
             gitcfg = out / ".git" / "config"
             gitcfg.touch()
             gitcfg.write_text("[user]\n\tname = Name\n\temail = email@wp.p\n")
             run(["git", "add", "."], check=True)
-            run(["git", "commit", "-q", "-m", "init"], check=True)
+            run(["git", "commit", "-q", "-m", "initial"], check=True)
             yield out
 
 

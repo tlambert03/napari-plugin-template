@@ -15,30 +15,36 @@ on:
 
 jobs:
   test:
-    name: ${{ matrix.platform }} py${{ matrix.python-version }}
-    runs-on: ${{ matrix.platform }}
+    name: {% raw %}${{ matrix.platform }} py${{ matrix.python-version }}{% endraw %}{% if include_widget_plugin %}{% raw %} ${{ matrix.backend }}{% endraw %}{% endif %}
+    runs-on: {% raw %}${{ matrix.platform }}{% endraw %}
     strategy:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: [3.8, 3.9, '3.10']
+        python-version: ["3.8", "3.9", "3.10"]
+{%- if include_widget_plugin %}
+        backend: ["pyqt5", "pyside2"]
+{%- endif %}
 
     steps:
       - uses: actions/checkout@v3
 
+{%- raw %}
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+{%- endraw %}
+{%- if include_widget_plugin %}
 
       # these libraries enable testing on Qt on linux
       - uses: tlambert03/setup-qt-libs@v1
-
       # strategy borrowed from vispy for installing opengl libs on windows
       - name: Install Windows OpenGL
         if: runner.os == 'Windows'
         run: |
           git clone --depth 1 https://github.com/pyvista/gl-ci-helpers.git
           powershell gl-ci-helpers/appveyor/install_opengl.ps1
+{%- endif %}
 
       # note: if you need dependencies from conda, considering using
       # setup-miniconda: https://github.com/conda-incubator/setup-miniconda
@@ -55,7 +61,10 @@ jobs:
         with:
           run: python -m tox
         env:
-          PLATFORM: ${{ matrix.platform }}
+          PLATFORM: {% raw %}${{ matrix.platform }}{% endraw %}
+{%- if include_widget_plugin %}
+          BACKEND: {% raw %}${{ matrix.backend }}{% endraw %}
+{%- endif %}
 
       - name: Coverage
         uses: codecov/codecov-action@v3
@@ -73,15 +82,21 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.x"
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -U setuptools setuptools_scm wheel twine build
+
       - name: Build and publish
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.TWINE_API_KEY }}
+          TWINE_PASSWORD: {% raw %}${{ secrets.TWINE_API_KEY }}{% endraw %}
         run: |
           git tag
           python -m build .
           twine upload dist/*
+
+      - uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true

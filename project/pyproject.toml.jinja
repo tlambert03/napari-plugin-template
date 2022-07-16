@@ -97,3 +97,11 @@ ignore = [
   "{{_copier_conf.answers_file}}",
   "tox.ini",
 ]
+
+# https://docs.pytest.org/en/6.2.x/customize.html
+[tool.pytest.ini_options]
+minversion = "6.0"
+filterwarnings = [
+    "error:::{{module_name}}",  # make all internal warnings errors (test them directly)
+    "ignore:distutils Version classes are deprecated:DeprecationWarning",
+]
