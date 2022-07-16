@@ -20,7 +20,7 @@ class ExampleQWidget(QWidget):
     # in one of two ways:
     # 1. use a parameter called `napari_viewer`, as done here
     # 2. use a type annotation of 'napari.viewer.Viewer' for any parameter
-    def __init__(self, napari_viewer):include_sample_data_plugin
+    def __init__(self, napari_viewer):
         super().__init__()
         self.viewer = napari_viewer
 
