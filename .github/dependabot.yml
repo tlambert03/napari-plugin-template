@@ -8,10 +8,3 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "ci(dependabot):"
-
-  - package-ecosystem: "github-actions"
-    directory: "/project/.github/workflows"
-    schedule:
-      interval: "weekly"
-    commit-message:
-      prefix: "ci(dependabot):"
