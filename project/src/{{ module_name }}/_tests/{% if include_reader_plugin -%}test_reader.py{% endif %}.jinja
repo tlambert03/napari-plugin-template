@@ -44,6 +44,8 @@ def test_with_npe2(npe2pm, sample_file):
     # register your manifest with a temporary mock plugin manager
     mf_path = str(Path(__file__).parent.parent / "napari.yaml")
     with npe2pm.tmp_plugin(manifest=mf_path) as my_plugin:
-        layer_data = npe2.read(paths=[sample_file], plugin_name=my_plugin.name)
+        layer_data = npe2.read(
+            paths=[sample_file], plugin_name=my_plugin.name, stack=False
+        )
         assert isinstance(layer_data, list) and len(layer_data)
         assert layer_data[0][0].shape == (20, 20)

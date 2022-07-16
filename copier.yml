@@ -3,11 +3,12 @@
 full_name: 
   type: str
   help: Your full name
+  default: Napari Developer
 
 email:
   type: str
   help: Your email
-  placeholder: yourname@example.com
+  default: yourname@example.com
 
 github_username_or_organization:
   type: str
@@ -85,3 +86,4 @@ license:
 
 _subdirectory: project
 _templates_suffix: .jinja
+_answers_file: .napari-template-answers.yml

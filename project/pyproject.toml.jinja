@@ -30,10 +30,10 @@ classifiers = [
 dynamic = ["version"]
 dependencies = [
     "numpy",
-{%- if include_widget_plugin == 'y' -%}
+{%- if include_widget_plugin %}
     "magicgui",
     "qtpy",
-{% endif %}
+{%- endif %}
 ]
 
 {% if repository_url != 'provide later' -%}
@@ -51,12 +51,20 @@ testing = [
     "tox",
     "pytest",  # https://docs.pytest.org/en/latest/contents.html
     "pytest-cov",  # https://pytest-cov.readthedocs.io/en/latest/
-{%- if include_widget_plugin == 'y' -%}
+{%- if include_widget_plugin %}
     "pytest-qt",  # https://pytest-qt.readthedocs.io/en/latest/
     "napari",
     "pyqt5",
-{% endif %}
+{%- endif %}
 ]
+{%- if include_widget_plugin %}
+# you've selected a widget plugin, these extras allow you to declare
+# the backends you support (you should aim to support both)
+# these are also used in the tox.ini file
+pyqt5 = ["PyQt5>=5.12.3"]
+pyside2 = ["PySide2>=5.14.2"]
+{%- endif %}
+
 
 # Entry points
 # https://peps.python.org/pep-0621/#entry-points
@@ -71,9 +79,9 @@ packages = {find = {where = ["src"], exclude=[]}}
 
 [tool.setuptools.package-data]
 "*" = ["*.yaml"]
-
-{% if use_git_tags_for_versioning %}[tool.setuptools_scm]{% endif %}
-
+{% if use_git_tags_for_versioning %}
+[tool.setuptools_scm]
+{% endif %}
 [tool.black]
 line-length = 79
 
@@ -86,6 +94,6 @@ line_length = 79
 ignore = [
   ".napari/**/*",
   ".pre-commit-config.yaml",
-  ".copier-answers.yml",
+  "{{_copier_conf.answers_file}}",
   "tox.ini",
 ]

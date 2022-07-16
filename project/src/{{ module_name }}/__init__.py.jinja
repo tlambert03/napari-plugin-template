@@ -1,4 +1,4 @@
-{% if version_control == 'setuptools-scm' -%}
+{% if use_git_tags_for_versioning -%}
 from importlib.metadata import PackageNotFoundError, version
 
 try:
