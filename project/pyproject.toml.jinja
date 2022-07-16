@@ -48,9 +48,10 @@ Documentation = "{{ repository_url }}#README.md"
 # https://peps.python.org/pep-0621/#dependencies-optional-dependencies
 [project.optional-dependencies]
 testing = [
-    "tox",
+    "npe2",
     "pytest",  # https://docs.pytest.org/en/latest/contents.html
     "pytest-cov",  # https://pytest-cov.readthedocs.io/en/latest/
+    "tox",
 {%- if include_widget_plugin %}
     "pytest-qt",  # https://pytest-qt.readthedocs.io/en/latest/
     "napari",

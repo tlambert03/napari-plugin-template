@@ -4,7 +4,7 @@ import tempfile
 from contextlib import contextmanager
 from pathlib import Path
 from subprocess import run
-from typing import Any, Callable
+from typing import Any
 
 import pytest
 import tomli
@@ -85,5 +85,6 @@ def test_bake_and_pre_commit(built):
     run(["pre-commit", "run", "--all-files"], check=True)
 
 
+@pytest.mark.skipif(not os.getenv("CI"), reason="Only run on CI")
 def test_bake_and_test(built):
     run(["tox", "--verbose"], check=True)
