@@ -1,29 +1,36 @@
 # ---------- PROMPTS ----------
 
-full_name: 
-  type: str
-  help: Your full name
-  default: Napari Developer
-
-email:
-  type: str
-  help: Your email
-  default: yourname@example.com
-
-github_username_or_organization:
-  type: str
-  help: Your repository namespace
-  default: githubuser
-
 plugin_name:
   type: str
-  help: The name of your plugin
-  default: napari-foobar
+  help: The name of your plugin (as distributed on PyPI)
+  placeholder: napari-foobar
+  validator: "{% if not plugin_name %}Cannot be blank{% endif %}"
+
+display_name:
+  type: str
+  help: User-facing text to display as the name of this plugin.
+  placeholder: "{{ plugin_name|title|replace('-', ' ') }}"
+  validator: "{% if not display_name %}Cannot be blank{% endif %}"
 
 module_name: 
   type: str
   help: The top level module name (from which you will import)
-  default: "{{ plugin_name|lower|replace('-', '_') }}"
+  placeholder: "{{ plugin_name|lower|replace('-', '_') }}"
+  validator: "{% if not module_name %}Cannot be blank{% endif %}"
+
+full_name: 
+  type: str
+  help: Your full name
+  validator: "{% if not full_name %}Cannot be blank{% endif %}"
+
+email:
+  type: str
+  help: Your email
+  validator: "{% if not email %}Cannot be blank{% endif %}"
+
+github_username_or_organization:
+  type: str
+  help: Your repository namespace
 
 repository_url:
   type: str
@@ -33,35 +40,29 @@ repository_url:
     - "https://github.com/{{github_username_or_organization}}/{{plugin_name}}"
     - provide later
 
-
-display_name:
-  type: str
-  help: User-facing text to display as the name of this plugin.
-  default: "{{ plugin_name|title|replace('-', ' ') }}"
-
 short_description: 
   type: str
+  default: A napari plugin.
   help: a short description of what your plugin does
-  default: A simple plugin to use with napari
 
 include_reader_plugin:
   type: bool
-  default: true
+  default: false
   help: Include reader plugin example in project?
 
 include_writer_plugin:
   type: bool
-  default: true
+  default: false
   help: Include writer plugin example in project?
 
 include_sample_data_plugin:
   type: bool
-  default: true
+  default: false
   help: Include sample data plugin example in project?
 
 include_widget_plugin:
   type: bool
-  default: true
+  default: false
   help: Include widget plugin example in project?
 
 use_git_tags_for_versioning:
@@ -82,7 +83,7 @@ license:
     - Apache License 2.0
     - GNU Lesser General Public License v3.0
 
-# ---------- CONIFGURATION ----------
+# ---------- CONFIGURATION ----------
 
 _subdirectory: project
 _templates_suffix: .jinja
